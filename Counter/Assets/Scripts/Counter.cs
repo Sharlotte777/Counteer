@@ -7,7 +7,7 @@ public class Counter : MonoBehaviour
     private float _counter = 0f;
     private int _numberOfClicks = 0;
     private bool _isCounting = false;
-    private Coroutine _countCoroutine;
+    private Coroutine _count;
 
     private void Update()
     {
@@ -18,26 +18,26 @@ public class Counter : MonoBehaviour
             if (_numberOfClicks % 2 != 0)
             {
                 _isCounting = true;
-                _countCoroutine = StartCoroutine(CountCoroutine());
+                _count = StartCoroutine(Count());
             }
             else
             {
                 _isCounting = false;
-                StopCoroutine(_countCoroutine);
+                StopCoroutine(_count);
             }
         }
     }
 
-    private IEnumerator CountCoroutine()
+    private IEnumerator Count()
     {
-        float _waitingTime = 0.5f;
-        WaitForSeconds _waiting = new WaitForSeconds(_waitingTime);
+        float waitingTime = 0.5f;
+        WaitForSeconds waiting = new WaitForSeconds(waitingTime);
 
         while (_isCounting)
         {
             _counter++;
             Debug.Log(_counter);
-            yield return _waiting;
+            yield return waiting;
         }
     }
 }
