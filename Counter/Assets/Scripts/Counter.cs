@@ -1,39 +1,44 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Counter : MonoBehaviour
 {
-    private float counter = 0f;
-    private int numberOfClicks = 0;
-    private bool isCounting = false;
-    private Coroutine countCoroutine;
+    private float _counter = 0f;
+    private int _numberOfClicks = 0;
+    private bool _isCounting = false;
+    private Coroutine _countCoroutine;
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            numberOfClicks++;
+            _numberOfClicks++;
 
-            if (numberOfClicks % 2 != 0)
+            if (_numberOfClicks % 2 != 0)
             {
-                isCounting = true;
-                countCoroutine = StartCoroutine(CountCoroutine());
+                _isCounting = true;
+                _countCoroutine = StartCoroutine(CountCoroutine());
             }
             else
             {
-                isCounting = false;
-                StopCoroutine(countCoroutine);
+                _isCounting = false;
+                StopCoroutine(_countCoroutine);
             }
         }
     }
 
-    IEnumerator CountCoroutine()
+    private IEnumerator CountCoroutine()
     {
-        while (isCounting)
+        float _waitingTime = 0.5f;
+        WaitForSeconds _waiting = new WaitForSeconds(_waitingTime);
+
+        while (_isCounting)
         {
-            counter++;
-            Debug.Log(counter);
-            yield return new WaitForSeconds(0.5f);
+            _counter++;
+            Debug.Log(_counter);
+            yield return _waiting;
         }
     }
 }
+
