@@ -36,9 +36,14 @@ public class Counter : MonoBehaviour
         while (_isCounting)
         {
             _counter++;
-            Debug.Log(_counter);
+            WriteToConsole(_counter);
             yield return waiting;
         }
+    }
+
+    private void WriteToConsole(float counter)
+    {
+        Debug.Log(counter);
     }
 }
 
