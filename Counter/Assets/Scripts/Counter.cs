@@ -6,6 +6,7 @@ public class Counter : MonoBehaviour
 {
     private float _counter = 0f;
     private int _numberOfClicks = 0;
+    private int _parityCheck = 2;
     private bool _isCounting = false;
     private Coroutine _count;
 
@@ -15,7 +16,7 @@ public class Counter : MonoBehaviour
         {
             _numberOfClicks++;
 
-            if (_numberOfClicks % 2 != 0)
+            if (_numberOfClicks % _parityCheck != 0)
             {
                 _isCounting = true;
                 _count = StartCoroutine(Count());
