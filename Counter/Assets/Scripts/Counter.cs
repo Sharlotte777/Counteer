@@ -4,27 +4,24 @@ using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCou
 
 public class Counter : MonoBehaviour
 {
-    private float _counter = 0f;
-    private int _numberOfClicks = 0;
-    private int _parityCheck = 2;
+    private float _count = 0f;
     private bool _isCounting = false;
-    private Coroutine _count;
+    private Coroutine _coroutine = null;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _numberOfClicks++;
-
-            if (_numberOfClicks % _parityCheck != 0)
+            if (_coroutine == null)
             {
                 _isCounting = true;
-                _count = StartCoroutine(Count());
+                _coroutine = StartCoroutine(Count());
             }
             else
             {
                 _isCounting = false;
-                StopCoroutine(_count);
+                StopCoroutine(_coroutine);
+                _coroutine = null;
             }
         }
     }
@@ -36,8 +33,8 @@ public class Counter : MonoBehaviour
 
         while (_isCounting)
         {
-            _counter++;
-            WriteToConsole(_counter);
+            _count++;
+            WriteToConsole(_count);
             yield return waiting;
         }
     }
